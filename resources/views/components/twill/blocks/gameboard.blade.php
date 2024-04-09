@@ -3,6 +3,8 @@
 {{-- CORNER CARDS: w-[10vw] h-[20vh] --}}
 {{-- Title: h-[6vh], Images: h-[8vh] --}}
 
+{{-- TODO: Add owner to property --}}
+
 <div class="my-2">
     {{-- TOP ROW --}}
     <div class="flex flex-row justify-center">
@@ -20,7 +22,7 @@
             </div>
         </div>
         @foreach ($block->getRelated('top_cards') as $card)
-            <div>
+            <div class="wrapper">
                 @if ($card instanceof \App\Models\Property)
                     <div class="counter w-[8vw] h-[6vh] grid grid-cols-3">
                         <div
@@ -36,6 +38,14 @@
                 @endif
                 <div id="top"
                     class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                    <div class="data hidden">
+                        <div class="rent0">{{ $card->rent0 }}</div>
+                        <div class="rent1">{{ $card->rent1 }}</div>
+                        <div class="rent2">{{ $card->rent2 }}</div>
+                        <div class="rent3">{{ $card->rent3 }}</div>
+                        <div class="rent4">{{ $card->rent4 }}</div>
+                        <div class="rentHotel"> {{ $card->rentHotel }}</div>
+                    </div>
                     {{-- Clicking the card toggles between this --}}
                     <div class="mainContent flex flex-col justify-end flex-grow">
                         <div
@@ -726,12 +736,12 @@
 </div>
 
 <script>
-    const cards = document.querySelectorAll('.propertyCard');
-
-    cards.forEach(card => {
+    const wrappers = document.querySelectorAll('.wrapper');
+    wrappers.forEach(wrapper => {
+        const card = wrapper.querySelector('.propertyCard');
         const mainContent = card.querySelector('.mainContent');
         const additionalDetails = card.querySelector('.additionalDetails');
-        let timer; // Variable to store the timer
+        let timer;
 
         card.addEventListener('click', function() {
             clearTimeout(timer); // Clear the timer on manual click
@@ -749,11 +759,8 @@
                 mainContent.style.height = originalHeight + 'px';
             }, 5000);
         });
-    });
 
-    const counters = document.querySelectorAll('.counter');
-
-    counters.forEach(counter => {
+        const counter = wrapper.querySelector('.counter');
         let houseCount = 0;
         const houseNum = counter.querySelector('.houseNum');
         const incrementBtn = counter.querySelector('.increment');
@@ -796,5 +803,22 @@
 
             houseNum.innerHTML = svgCode;
         }
-    });
+    })
+
+
+    //     const data = card.querySelector('.data');
+    //     const rent0 = data.querySelector('.rent0');
+    //     const rent1 = data.querySelector('.rent1');
+    //     const rent2 = data.querySelector('.rent2');
+    //     const rent3 = data.querySelector('.rent3');
+    //     const rent4 = data.querySelector('.rent4');
+    //     const costHouse = data.querySelector('.costHouse');
+
+    //     const rentMap = new Map([
+    //         [1, rent1],
+    //         [2, rent2],
+    //         [3, rent3],
+    //         [4, rent4],
+    //         [5, rent4]
+    //     ]);
 </script>
