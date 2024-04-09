@@ -1,3 +1,6 @@
+{{-- TOP & BOTTOM CARDS: w-[8vw] h-[20vh] --}}
+{{-- LEFT & RIGHT CARDS: w-[10vw] h-[16vh] --}}
+
 <div class="my-2">
     {{-- TOP ROW --}}
     <div class="flex flex-row justify-center">
@@ -5,7 +8,7 @@
         <div>
             <div class="h-[5vh]"></div>
             <div
-                class="flex flex-col items-center justify-center w-[10vw] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('parking_top') }}</div>
                 <div>
                     <img src="{{ $block->image('parking_icon', 'free') }}">
@@ -34,7 +37,7 @@
                     {{-- Clicking the card toggles between this --}}
                     <div class="mainContent flex flex-col justify-end flex-grow">
                         <div
-                            class="flex-grow flex items-center justify-center px-1 border-b-2 border-black @if (in_array($loop->index, [0, 2, 3])) bg-red @elseif(in_array($loop->index, [5, 6, 8])) bg-yellow @endif">
+                            class="flex-grow flex items-center justify-center px-1 h-[6vh] border-b-2 border-black @if (in_array($loop->index, [0, 2, 3])) bg-red @elseif(in_array($loop->index, [5, 6, 8])) bg-yellow @endif">
                             {{ $card->title }}
                         </div>
                         <div>
@@ -176,7 +179,7 @@
         <div>
             <div class="h-[5vh]"></div>
             <div
-                class="flex flex-col items-center justify-center w-[10vw] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('jail_top') }}</div>
                 <div>
                     <img src="{{ $block->image('jail_icon', 'free') }}">
