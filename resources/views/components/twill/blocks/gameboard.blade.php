@@ -2,17 +2,33 @@
     {{-- TOP ROW --}}
     <div class="flex flex-row justify-center">
         {{-- FREE PARKING --}}
-        <div
-            class="flex flex-col items-center justify-center w-[10vw] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
-            <div class="mt-1">{{ $block->translatedInput('parking_top') }}</div>
-            <div>
-                <img src="{{ $block->image('parking_icon', 'free') }}">
+        <div>
+            <div class="h-[5vh]"></div>
+            <div
+                class="flex flex-col items-center justify-center w-[10vw] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                <div class="mt-1">{{ $block->translatedInput('parking_top') }}</div>
+                <div>
+                    <img src="{{ $block->image('parking_icon', 'free') }}">
+                </div>
+                <div class="mb-1">{{ $block->translatedInput('parking_bottom') }}</div>
             </div>
-            <div class="mb-1">{{ $block->translatedInput('parking_bottom') }}</div>
         </div>
         @foreach ($block->getRelated('top_cards') as $card)
             <div>
-                
+                @if ($card instanceof \App\Models\Property)
+                    <div class="counter w-[8vw] h-[5vh] grid grid-cols-3">
+                        {{-- I don't know how to give each counter their own set of functions so this will do --}}
+                        <div
+                            class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                            -</div>
+                        <div class="houseNum flex items-center justify-center"></div>
+                        <div
+                            class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                            +</div>
+                    </div>
+                @else
+                    <div class="h-[5vh]"></div>
+                @endif
                 <div id="top"
                     class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                     {{-- Clicking the card toggles between this --}}
@@ -157,14 +173,18 @@
             </div>
         @endforeach
         {{-- GO TO JAIL --}}
-        <div
-            class="flex flex-col items-center justify-center w-[10vw] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
-            <div class="mt-1">{{ $block->translatedInput('jail_top') }}</div>
-            <div>
-                <img src="{{ $block->image('jail_icon', 'free') }}">
+        <div>
+            <div class="h-[5vh]"></div>
+            <div
+                class="flex flex-col items-center justify-center w-[10vw] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                <div class="mt-1">{{ $block->translatedInput('jail_top') }}</div>
+                <div>
+                    <img src="{{ $block->image('jail_icon', 'free') }}">
+                </div>
+                <div class="mb-1">{{ $block->translatedInput('jail_bottom') }}</div>
             </div>
-            <div class="mb-1">{{ $block->translatedInput('jail_bottom') }}</div>
         </div>
+
     </div>
 
     <div class="grid grid-cols-2 gap-[65vw]">
@@ -653,5 +673,52 @@
                 mainContent.style.height = originalHeight + 'px';
             }, 5000);
         });
+    });
+
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach(counter => {
+        let houseCount = 0;
+        const houseNum = counter.querySelector('.houseNum');
+        const incrementBtn = counter.querySelector('.increment');
+        const decrementBtn = counter.querySelector('.decrement');
+
+        incrementBtn.addEventListener('click', function() {
+            if (houseCount < 5) {
+                houseCount++;
+                updateCount();
+            }
+        });
+
+        decrementBtn.addEventListener('click', function() {
+            if (houseCount > 0) {
+                houseCount--;
+                updateCount();
+            }
+        });
+
+        function updateCount() {
+            let svgCode = ''; // Variable to store the generated SVG code
+            if (houseCount == 5) {
+                svgCode = `<svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
+                                        width="3vw" height="3vh" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
+                                        </path>
+                                    </svg>`;
+            } else {
+                for (let i = 0; i < houseCount; i++) {
+                    // Generate SVG code for the house favicon and concatenate it to the svgCode variable
+                    svgCode += `
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw" height="2vh" viewBox="0 0 50 50">
+                <path d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z"></path>
+            </svg>
+        `;
+                }
+            }
+
+            houseNum.innerHTML = svgCode;
+        }
     });
 </script>
