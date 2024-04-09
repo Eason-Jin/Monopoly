@@ -12,21 +12,24 @@
     </div>
     <div class="p-2 border-black border-2 rounded-md py-5 bg-gray-300">
         <div class="grid grid-cols-2 justify-items-center">
-            <button
+            <button onclick="newGame()"
                 class="bg-sky-200 border-2 border-sky-400 rounded-md font-semibold w-fit px-5 py-2 ml-5 hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">New
                 Game</button>
-            <button
+            <button onclick="saveGame()"
                 class="bg-sky-200 border-2 border-sky-400 rounded-md font-semibold w-fit px-5 py-2 mr-5 hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">Save
                 Game</button>
         </div>
     </div>
     <div class="p-2 border-black border-2 rounded-md py-5 bg-gray-300">
-        <div class="grid grid-cols-2 justify-items-center mr-16">
+        <div class="grid grid-cols-2 items-center justify-items-center mr-16">
             <button id="rollButton"
                 class="bg-sky-200 border-2 border-sky-400 rounded-md font-semibold w-fit px-5 py-2 hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">Roll</button>
-            <div class="grid grid-cols-2 justify-items-center w-full h-full font-bold text-lg">
-                <div id="num1" class="bg-white border-2 border-black rounded-md px-5 pt-1">1</div>
-                <div id="num2" class="bg-white border-2 border-black rounded-md px-5 pt-1">1</div>
+            <div class="grid grid-cols-5 items-center justify-items-center w-full h-full font-bold text-lg">
+                <div id="num1" class="bg-white border-2 border-black rounded-md px-5 pt-1">0</div>
+                <div>+</div>
+                <div id="num2" class="bg-white border-2 border-black rounded-md px-5 pt-1">0</div>
+                <div>=</div>
+                <div id="result" class="bg-white border-2 border-black rounded-md px-5 pt-1">0</div>
             </div>
         </div>
     </div>
@@ -80,6 +83,16 @@
         }
     }
 
+    // New game reloads the page
+    function newGame() {
+        location.reload();
+    }
+
+    // Save the game
+    function saveGame() {
+
+    }
+
     // Function to generate a random number between min and max
     function getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -106,6 +119,7 @@
             if (index < 10) {
                 document.getElementById('num1').textContent = num1Array[index];
                 document.getElementById('num2').textContent = num2Array[index];
+                document.getElementById('result').textContent = num1Array[index] + num2Array[index];
                 index++;
             } else {
                 clearInterval(interval); // Stop the interval when reaching the last number
