@@ -11,145 +11,148 @@
             <div class="mb-1">{{ $block->translatedInput('parking_bottom') }}</div>
         </div>
         @foreach ($block->getRelated('top_cards') as $card)
-            <div id="top"
-                class="propertyCard bg-white border-2 border-black w-[8vw] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
-                {{-- Clicking the card toggles between this --}}
-                <div class="mainContent flex flex-col justify-end flex-grow">
-                    <div
-                        class="flex-grow flex items-center justify-center px-1 border-b-2 border-black @if (in_array($loop->index, [0, 2, 3])) bg-red @elseif(in_array($loop->index, [5, 6, 8])) bg-yellow @endif">
-                        {{ $card->title }}
+            <div>
+                
+                <div id="top"
+                    class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                    {{-- Clicking the card toggles between this --}}
+                    <div class="mainContent flex flex-col justify-end flex-grow">
+                        <div
+                            class="flex-grow flex items-center justify-center px-1 border-b-2 border-black @if (in_array($loop->index, [0, 2, 3])) bg-red @elseif(in_array($loop->index, [5, 6, 8])) bg-yellow @endif">
+                            {{ $card->title }}
+                        </div>
+                        <div>
+                            @if ($card->cost)
+                                <div class="flex flex-grow justify-center">
+                                    <img class="my-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                </div>
+                                <div class="mb-2">${{ $card->cost }}</div>
+                            @else
+                                <div class="flex flex-grow justify-center">
+                                    <img class="mt-6 mb-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                </div>
+                                <div class="h-[2vh]"></div>
+                            @endif
+                        </div>
                     </div>
-                    <div>
-                        @if ($card->cost)
-                            <div class="flex flex-grow justify-center">
-                                <img class="my-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+
+                    {{-- And this --}}
+                    <div class="additionalDetails text-[1.5vh] my-auto" style="display: none;">
+                        @if ($card instanceof \App\Models\Property)
+                            <div class="grid grid-cols-4 grid-rows-3 items-start">
+                                <div>Base</div>
+                                <div>:${{ $card->rent0 }}</div>
+
+                                <div class="flex flex-row items-center justify-center">
+                                    <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
+                                        width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>:${{ $card->rentHotel }}</div>
+
+                                <div class="flex flex-row justify-center">
+                                    <div class="pl-1">1</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
+                                        height="2vh" viewBox="0 0 50 50">
+                                        <path
+                                            d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>:${{ $card->rent1 }}</div>
+
+                                <div class="flex flex-row justify-center">
+                                    <div class="pl-1">2</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
+                                        height="2vh" viewBox="0 0 50 50">
+                                        <path
+                                            d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>:${{ $card->rent2 }}</div>
+
+                                <div class="flex flex-row justify-center">
+                                    <div class="pl-1">3</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
+                                        height="2vh" viewBox="0 0 50 50">
+                                        <path
+                                            d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>:${{ $card->rent3 }}</div>
+
+                                <div class="flex flex-row justify-center">
+                                    <div class="pl-1">4</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
+                                        height="2vh" viewBox="0 0 50 50">
+                                        <path
+                                            d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>:${{ $card->rent4 }}</div>
                             </div>
-                            <div class="mb-2">${{ $card->cost }}</div>
-                        @else
-                            <div class="flex flex-grow justify-center">
-                                <img class="mt-6 mb-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+
+                            <div class="bg-black h-[0.1vh] my-1"></div>
+
+                            <div class="grid grid-rows-2">
+                                <div class="flex flex-row items-center justify-center">
+                                    <div>+</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
+                                        height="2vh" viewBox="0 0 50 50">
+                                        <path
+                                            d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                        </path>
+                                    </svg>
+                                    <div>:${{ $card->costHouse }}</div>
+                                </div>
+
+                                <div class="flex flex-row items-center justify-center">
+                                    <div>+</div>
+                                    <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
+                                        width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
+                                        </path>
+                                    </svg>
+                                    <div>:${{ $card->costHotel }}</div>
+                                </div>
                             </div>
-                            <div class="h-[2vh]"></div>
-                        @endif
-                    </div>
-                </div>
-
-                {{-- And this --}}
-                <div class="additionalDetails text-[1.5vh] my-auto" style="display: none;">
-                    @if ($card instanceof \App\Models\Property)
-                    <div class="grid grid-cols-4 grid-rows-3 items-start">
-                        <div>Base</div>
-                        <div>:${{ $card->rent0 }}</div>
-
-                        <div class="flex flex-row items-center justify-center">
-                            <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
-                                width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rentHotel }}</div>
-
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">1</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent1 }}</div>
-
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">2</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent2 }}</div>
-
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">3</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent3 }}</div>
-
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">4</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent4 }}</div>
-                    </div>
-
-                    <div class="bg-black h-[0.1vh] my-1"></div>
-
-                    <div class="grid grid-rows-2">
-                        <div class="flex flex-row items-center justify-center">
-                            <div>+</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                            <div>:${{ $card->costHouse }}</div>
-                        </div>
-
-                        <div class="flex flex-row items-center justify-center">
-                            <div>+</div>
-                            <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
-                                width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
-                                </path>
-                            </svg>
-                            <div>:${{ $card->costHotel }}</div>
-                        </div>
-                    </div>
-                    <div class="bg-black h-[0.1vh] my-1"></div>
-                    @else
-                        @if ($card->own1)
-                            <div>1 owned: ${{ $card->own1 }}</div>
-                        @endif
-                        @if ($card->own2)
-                            <div>2 owned: ${{ $card->own2 }}</div>
-                        @endif
-                        @if ($card->own3)
-                            <div>3 owned: ${{ $card->own3 }}</div>
-                        @endif
-                        @if ($card->own4)
-                            <div>4 owned: ${{ $card->own4 }}</div>
-                        @endif
-                    @endif
-                    @if ($card->mortgage)
-                        {{-- This must be a company card --}}
-                        <div>Mortgage: ${{ $card->mortgage }}</div>
-                    @else
-                        @if ($card->cost)
-                            {{-- This must be a tax card --}}
-                            <div class="mx-1">Pay your {{ $card->title }}!</div>
+                            <div class="bg-black h-[0.1vh] my-1"></div>
                         @else
-                            {{-- This must be a chance / community card --}}
-                            <div class="mx-1">Draw a {{ $card->title }} card!</div>
+                            @if ($card->own1)
+                                <div>1 owned: ${{ $card->own1 }}</div>
+                            @endif
+                            @if ($card->own2)
+                                <div>2 owned: ${{ $card->own2 }}</div>
+                            @endif
+                            @if ($card->own3)
+                                <div>3 owned: ${{ $card->own3 }}</div>
+                            @endif
+                            @if ($card->own4)
+                                <div>4 owned: ${{ $card->own4 }}</div>
+                            @endif
                         @endif
-                    @endif
+                        @if ($card->mortgage)
+                            {{-- This must be a company card --}}
+                            <div>Mortgage: ${{ $card->mortgage }}</div>
+                        @else
+                            @if ($card->cost)
+                                {{-- This must be a tax card --}}
+                                <div class="mx-1">Pay your {{ $card->title }}!</div>
+                            @else
+                                {{-- This must be a chance / community card --}}
+                                <div class="mx-1">Draw a {{ $card->title }} card!</div>
+                            @endif
+                        @endif
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -372,7 +375,7 @@
                                     </svg>
                                 </div>
                                 <div>: ${{ $card->rent3 }}</div>
-                                
+
                                 <div class="flex flex-row justify-center">
                                     <div class="px-1">4</div>
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
@@ -486,93 +489,93 @@
                 {{-- And this --}}
                 <div class="additionalDetails text-[1.5vh] my-auto" style="display: none;">
                     @if ($card instanceof \App\Models\Property)
-                    <div class="grid grid-cols-4 grid-rows-3 items-start">
-                        <div>Base</div>
-                        <div>:${{ $card->rent0 }}</div>
+                        <div class="grid grid-cols-4 grid-rows-3 items-start">
+                            <div>Base</div>
+                            <div>:${{ $card->rent0 }}</div>
 
-                        <div class="flex flex-row items-center justify-center">
-                            <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
-                                width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rentHotel }}</div>
+                            <div class="flex flex-row items-center justify-center">
+                                <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
+                                    width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>:${{ $card->rentHotel }}</div>
 
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">1</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent1 }}</div>
+                            <div class="flex flex-row justify-center">
+                                <div class="pl-1">1</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw" height="2vh"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>:${{ $card->rent1 }}</div>
 
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">2</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent2 }}</div>
+                            <div class="flex flex-row justify-center">
+                                <div class="pl-1">2</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw" height="2vh"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>:${{ $card->rent2 }}</div>
 
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">3</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent3 }}</div>
+                            <div class="flex flex-row justify-center">
+                                <div class="pl-1">3</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw" height="2vh"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>:${{ $card->rent3 }}</div>
 
-                        <div class="flex flex-row justify-center">
-                            <div class="pl-1">4</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>:${{ $card->rent4 }}</div>
-                    </div>
-
-                    <div class="bg-black h-[0.1vh] my-1"></div>
-
-                    <div class="grid grid-rows-2">
-                        <div class="flex flex-row items-center justify-center">
-                            <div>+</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw"
-                                height="2vh" viewBox="0 0 50 50">
-                                <path
-                                    d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
-                                </path>
-                            </svg>
-                            <div>:${{ $card->costHouse }}</div>
+                            <div class="flex flex-row justify-center">
+                                <div class="pl-1">4</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw" height="2vh"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>:${{ $card->rent4 }}</div>
                         </div>
 
-                        <div class="flex flex-row items-center justify-center">
-                            <div>+</div>
-                            <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
-                                width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
-                                </path>
-                            </svg>
-                            <div>:${{ $card->costHotel }}</div>
+                        <div class="bg-black h-[0.1vh] my-1"></div>
+
+                        <div class="grid grid-rows-2">
+                            <div class="flex flex-row items-center justify-center">
+                                <div>+</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="2vw" height="2vh"
+                                    viewBox="0 0 50 50">
+                                    <path
+                                        d="M 24.962891 1.0546875 A 1.0001 1.0001 0 0 0 24.384766 1.2636719 L 1.3847656 19.210938 A 1.0005659 1.0005659 0 0 0 2.6152344 20.789062 L 4 19.708984 L 4 46 A 1.0001 1.0001 0 0 0 5 47 L 18.832031 47 A 1.0001 1.0001 0 0 0 19.158203 47 L 30.832031 47 A 1.0001 1.0001 0 0 0 31.158203 47 L 45 47 A 1.0001 1.0001 0 0 0 46 46 L 46 19.708984 L 47.384766 20.789062 A 1.0005657 1.0005657 0 1 0 48.615234 19.210938 L 41 13.269531 L 41 6 L 35 6 L 35 8.5859375 L 25.615234 1.2636719 A 1.0001 1.0001 0 0 0 24.962891 1.0546875 z M 25 3.3222656 L 44 18.148438 L 44 45 L 32 45 L 32 26 L 18 26 L 18 45 L 6 45 L 6 18.148438 L 25 3.3222656 z M 37 8 L 39 8 L 39 11.708984 L 37 10.146484 L 37 8 z M 20 28 L 30 28 L 30 45 L 20 45 L 20 28 z">
+                                    </path>
+                                </svg>
+                                <div>:${{ $card->costHouse }}</div>
+                            </div>
+
+                            <div class="flex flex-row items-center justify-center">
+                                <div>+</div>
+                                <svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
+                                    width="2.2vw" height="2.2vh" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819">
+                                    </path>
+                                </svg>
+                                <div>:${{ $card->costHotel }}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-black h-[0.1vh] my-1"></div>
+                        <div class="bg-black h-[0.1vh] my-1"></div>
                     @else
                         @if ($card->own1)
                             <div>1 owned: ${{ $card->own1 }}</div>
@@ -632,7 +635,6 @@
     cards.forEach(card => {
         const mainContent = card.querySelector('.mainContent');
         const additionalDetails = card.querySelector('.additionalDetails');
-        const originalHeight = mainContent.clientHeight; // Get the original height of the main content
         let timer; // Variable to store the timer
 
         card.addEventListener('click', function() {
@@ -640,12 +642,9 @@
             if (additionalDetails.style.display === 'none') {
                 additionalDetails.style.display = 'block';
                 mainContent.style.display = 'none';
-                mainContent.style.height = additionalDetails.clientHeight +
-                    'px'; // Set height to match additional details
             } else {
                 additionalDetails.style.display = 'none';
                 mainContent.style.display = 'flex'; // Reset display to flex
-                mainContent.style.height = originalHeight + 'px'; // Reset height to original height
             }
             // Set the timer to transition back to main content after 5 seconds
             timer = setTimeout(() => {
