@@ -1,22 +1,15 @@
-{{-- TOP & BOTTOM CARDS: w-[8vw] h-[20vh], Counter: w-[8vw] h-[6vh] --}}
-{{-- LEFT & RIGHT CARDS: w-[10vw] h-[20vh], Conuter: w-[3vw] h-[20vh], Margin: [0.5vw] --}}
+{{-- TOP & BOTTOM CARDS: w-[8vw] h-[20vh], Counter: w-[8vw] h-[6vh], Owner: w-[8vw] h-[4vh] --}}
+{{-- LEFT & RIGHT CARDS: w-[10vw] h-[20vh], Conuter: w-[3vw] h-[20vh], LR-margin: [0.5vw] --}}
 {{-- CORNER CARDS: w-[10vw] h-[20vh] --}}
 {{-- Title: h-[6vh], Images: h-[8vh] --}}
 
-{{-- TODO: Add owner to property --}}
-<select class="border-2 rounded-md border-black outline-none font-semibold">
-    <option selected value="vacant">Vacant</option>
-    @foreach ($players as $player)
-        <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
-    @endforeach
-</select>
 <div class="my-2">
     {{-- TOP ROW --}}
     <div class="flex flex-row justify-center">
         {{-- FREE PARKING --}}
         <div class="w-[3vw]"></div>
         <div>
-            <div class="h-[6vh]"></div>
+            <div class="h-[10vh]"></div>
             <div
                 class="flex flex-col items-center justify-center select-none w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('parking_top') }}</div>
@@ -29,6 +22,12 @@
         @foreach ($block->getRelated('top_cards') as $card)
             <div class="wrapper">
                 @if ($card instanceof \App\Models\Property)
+                    <select class="border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
+                        <option selected value="vacant">Vacant</option>
+                        @foreach ($players as $player)
+                            <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
+                        @endforeach
+                    </select>
                     <div class="counter w-[8vw] h-[6vh] select-none grid grid-cols-3">
                         <div
                             class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
@@ -39,7 +38,7 @@
                             +</div>
                     </div>
                 @else
-                    <div class="h-[6vh]"></div>
+                    <div class="h-[10vh]"></div>
                 @endif
                 <div
                     class="propertyCard select-none bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
@@ -138,7 +137,7 @@
         @endforeach
         {{-- GO TO JAIL --}}
         <div>
-            <div class="h-[6vh]"></div>
+            <div class="h-[10vh]"></div>
             <div
                 class="flex flex-col items-center justify-center select-none w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('jail_top') }}</div>
@@ -404,7 +403,7 @@
 
                 <div class="my-1">{{ $block->translatedInput('visiting') }}</div>
             </div>
-            <div class="h-[6vh]"></div>
+            <div class="h-[10vh]"></div>
         </div>
 
         @foreach ($block->getRelated('bottom_cards') as $card)
@@ -512,8 +511,14 @@
                             class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             +</div>
                     </div>
+                    <select class="border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
+                        <option selected value="vacant">Vacant</option>
+                        @foreach ($players as $player)
+                            <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
+                        @endforeach
+                    </select>
                 @else
-                    <div class="h-[6vh]"></div>
+                    <div class="h-[10vh]"></div>
                 @endif
             </div>
         @endforeach
@@ -540,7 +545,7 @@
                     </span>
                 </div>
             </div>
-            <div class="h-[6vh]"></div>
+            <div class="h-[10vh]"></div>
         </div>
         <div class="w-[3vw]"></div>
     </div>
