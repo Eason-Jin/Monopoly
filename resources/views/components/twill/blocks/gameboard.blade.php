@@ -57,12 +57,12 @@
                         <div>
                             @if ($card->cost)
                                 <div class="flex flex-grow justify-center">
-                                    <img class="my-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                    <img class="h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                 </div>
                                 <div class="mb-2">${{ $card->cost }}</div>
                             @else
                                 <div class="flex flex-grow justify-center">
-                                    <img class="mt-6 mb-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                    <img class="mt-3 h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                 </div>
                                 <div class="h-[2vh]"></div>
                             @endif
@@ -186,12 +186,12 @@
                                 <div>
                                     @if ($card->cost)
                                         <div class="flex flex-grow justify-center">
-                                            <img class="my-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                            <img class="h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                         </div>
                                         <div class="mb-2">${{ $card->cost }}</div>
                                     @else
                                         <div class="flex flex-grow justify-center">
-                                            <img class="mt-6 mb-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                            <img class="mt-1 h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                         </div>
                                         <div class="h-[2vh]"></div>
                                     @endif
@@ -290,12 +290,12 @@
                                 <div>
                                     @if ($card->cost)
                                         <div class="flex flex-grow justify-center">
-                                            <img class="my-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                            <img class="h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                         </div>
                                         <div class="mb-2">${{ $card->cost }}</div>
                                     @else
                                         <div class="flex flex-grow justify-center">
-                                            <img class="mt-6 mb-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                            <img class="mt-1 h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                         </div>
                                         <div class="h-[2vh]"></div>
                                     @endif
@@ -425,12 +425,12 @@
                         <div>
                             @if ($card->cost)
                                 <div class="flex flex-grow justify-center">
-                                    <img class="my-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                    <img class="h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                 </div>
                                 <div class="mb-2">${{ $card->cost }}</div>
                             @else
                                 <div class="flex flex-grow justify-center">
-                                    <img class="mt-6 mb-2 h-[8vh]" src="{{ $card->image('cover', 'free') }}">
+                                    <img class="mt-3 h-[10vh]" src="{{ $card->image('cover', 'free') }}">
                                 </div>
                                 <div class="h-[2vh]"></div>
                             @endif
