@@ -38,14 +38,16 @@
                 @endif
                 <div
                     class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
-                    <div class="data hidden">
-                        <div class="rent0">{{ $card->rent0 }}</div>
-                        <div class="rent1">{{ $card->rent1 }}</div>
-                        <div class="rent2">{{ $card->rent2 }}</div>
-                        <div class="rent3">{{ $card->rent3 }}</div>
-                        <div class="rent4">{{ $card->rent4 }}</div>
-                        <div class="rentHotel"> {{ $card->rentHotel }}</div>
-                    </div>
+                    @if ($card instanceof \App\Models\Property)
+                        <div class="rentData hidden">
+                            <div class="rent0">{{ $card->rent0 }}</div>
+                            <div class="rent1">{{ $card->rent1 }}</div>
+                            <div class="rent2">{{ $card->rent2 }}</div>
+                            <div class="rent3">{{ $card->rent3 }}</div>
+                            <div class="rent4">{{ $card->rent4 }}</div>
+                            <div class="rentHotel"> {{ $card->rentHotel }}</div>
+                        </div>
+                    @endif
                     {{-- Clicking the card toggles between this --}}
                     <div class="mainContent flex flex-col justify-end flex-grow">
                         <div
@@ -70,6 +72,7 @@
                     {{-- And this --}}
                     <div class="additionalDetails text-[1.5vh] my-auto" style="display: none;">
                         @if ($card instanceof \App\Models\Property)
+                            <div class="rent"></div>
                             <div class="grid grid-cols-4 grid-rows-3 items-start">
                                 <div>Base</div>
                                 <div>:${{ $card->rent0 }}</div>
@@ -753,6 +756,20 @@
             const additionalDetails = card.querySelector('.additionalDetails');
             let timer;
 
+            const rentData = card.querySelector('.rentData');
+            let dataMap = null;
+            if (rentData != null) {
+                dataMap = {
+                    0: parseInt(rentData.querySelector('.rent0').textContent.trim()),
+                    1: parseInt(rentData.querySelector('.rent1').textContent.trim()),
+                    2: parseInt(rentData.querySelector('.rent2').textContent.trim()),
+                    3: parseInt(rentData.querySelector('.rent3').textContent.trim()),
+                    4: parseInt(rentData.querySelector('.rent4').textContent.trim()),
+                    5: parseInt(rentData.querySelector('.rentHotel').textContent.trim()),
+                };
+                console.log(dataMap);
+            }
+
             card.addEventListener('click', function() {
                 clearTimeout(timer); // Clear the timer on manual click
                 if (additionalDetails.style.display === 'none') {
@@ -794,6 +811,14 @@
 
             function updateCount() {
                 let svgCode = ''; // Variable to store the generated SVG code
+
+                if (dataMap != null) {
+                    const currentRent = dataMap[houseCount];
+                    const rent = additionalDetails.querySelector('.rent');
+                    rent.innerHTML = currentRent;
+                }
+
+
                 if (houseCount == 5) {
                     svgCode = `<svg data-slot="icon" fill="none" stroke-width="0.7" stroke="currentColor"
                                             width="3vw" height="3vh" viewBox="0 0 24 24"
