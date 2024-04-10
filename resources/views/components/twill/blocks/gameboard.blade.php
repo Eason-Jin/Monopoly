@@ -834,6 +834,7 @@
                     clearInterval(interval); // Stop the interval when reaching the last number
                 }
             }, 50);
+            saveGame();
         }
 
         document.getElementById('rollButton').addEventListener('click', rollNumbers);
