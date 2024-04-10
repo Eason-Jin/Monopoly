@@ -12,10 +12,10 @@
     </div>
     <div class="p-2 border-black border-2 rounded-md py-5 bg-gray-300">
         <div class="grid grid-cols-2 justify-items-center">
-            <button onclick="newGame()"
+            <button id="newGameButton"
                 class="bg-sky-200 border-2 border-sky-400 rounded-md font-semibold w-fit px-5 py-2 ml-5 hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">New
                 Game</button>
-            <button onclick="saveGame()"
+            <button id="saveButton"
                 class="bg-sky-200 border-2 border-sky-400 rounded-md font-semibold w-fit px-5 py-2 mr-5 hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">Save
                 Game</button>
         </div>
@@ -37,6 +37,18 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var savedPositions = localStorage.getItem('savedPositions');
+        if (savedPositions) {
+            var positions = JSON.parse(savedPositions);
+            var dragElements = document.querySelectorAll(".dragPlayer");
+
+            // Set the initial position of each drag element
+            dragElements.forEach(function(el, index) {
+                el.style.top = positions[index].top + 'px';
+                el.style.left = positions[index].left + 'px';
+            });
+        }
+
         // Select all elements with the dragPlayer class
         var dragElements = document.querySelectorAll(".dragPlayer");
 
@@ -84,14 +96,29 @@
             }
         }
 
-        // New game reloads the page
+        // New game reloads the page and clears local storage
         function newGame() {
+            localStorage.removeItem('savedPositions');
             location.reload();
         }
 
         // Save the game
         function saveGame() {
+            var dragElements = document.querySelectorAll(".dragPlayer");
+            var positions = [];
 
+            // Iterate over each drag element to save its position
+            dragElements.forEach(function(el) {
+                var position = {
+                    top: el.offsetTop,
+                    left: el.offsetLeft
+                };
+                positions.push(position);
+            });
+
+            // Convert the positions array to JSON and save it
+            var positionsJSON = JSON.stringify(positions);
+            localStorage.setItem('savedPositions', positionsJSON);
         }
 
         // Function to generate a random number between min and max
@@ -130,5 +157,7 @@
 
         // Add event listener to the roll button
         document.getElementById('rollButton').addEventListener('click', rollNumbers);
+        document.getElementById('newGameButton').addEventListener('click', newGame);
+        document.getElementById('saveButton').addEventListener('click', saveGame);
     });
 </script>
