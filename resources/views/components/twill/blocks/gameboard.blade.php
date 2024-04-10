@@ -13,7 +13,7 @@
         <div>
             <div class="h-[6vh]"></div>
             <div
-                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                class="flex flex-col items-center justify-center select-none w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('parking_top') }}</div>
                 <div>
                     <img src="{{ $block->image('parking_icon', 'free') }}">
@@ -24,7 +24,7 @@
         @foreach ($block->getRelated('top_cards') as $card)
             <div class="wrapper">
                 @if ($card instanceof \App\Models\Property)
-                    <div class="counter w-[8vw] h-[6vh] grid grid-cols-3">
+                    <div class="counter w-[8vw] h-[6vh] select-none grid grid-cols-3">
                         <div
                             class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             -</div>
@@ -37,7 +37,7 @@
                     <div class="h-[6vh]"></div>
                 @endif
                 <div
-                    class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                    class="propertyCard select-none bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                     @if ($card instanceof \App\Models\Property)
                         <div class="rentData hidden">
                             <div class="rent0">{{ $card->rent0 }}</div>
@@ -135,7 +135,7 @@
         <div>
             <div class="h-[6vh]"></div>
             <div
-                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                class="flex flex-col items-center justify-center select-none w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('jail_top') }}</div>
                 <div>
                     <img src="{{ $block->image('jail_icon', 'free') }}">
@@ -153,7 +153,7 @@
                 <div class="wrapper">
                     <div class="flex flex-row">
                         @if ($card instanceof \App\Models\Property)
-                            <div class="counter w-[3vw] h-[20vh] grid grid-rows-3">
+                            <div class="counter w-[3vw] h-[20vh] select-none grid grid-rows-3">
                                 <div
                                     class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                                     +</div>
@@ -166,7 +166,7 @@
                             <div class="w-[3vw]"></div>
                         @endif
                         <div
-                            class="propertyCard bg-white border-2 border-black w-[10vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                            class="propertyCard bg-white border-2 border-black w-[10vw] h-[20vh] select-none text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             @if ($card instanceof \App\Models\Property)
                                 <div class="rentData hidden">
                                     <div class="rent0">{{ $card->rent0 }}</div>
@@ -270,7 +270,7 @@
                 <div class="wrapper">
                     <div class="flex flex-row">
                         <div
-                            class="propertyCard bg-white border-2 border-black w-[10vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                            class="propertyCard bg-white border-2 border-black w-[10vw] h-[20vh] select-none text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             @if ($card instanceof \App\Models\Property)
                                 <div class="rentData hidden">
                                     <div class="rent0">{{ $card->rent0 }}</div>
@@ -364,7 +364,7 @@
                             </div>
                         </div>
                         @if ($card instanceof \App\Models\Property)
-                            <div class="counter w-[3vw] h-[20vh] grid grid-rows-3">
+                            <div class="counter w-[3vw] h-[20vh] select-none grid grid-rows-3">
                                 <div
                                     class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                                     +</div>
@@ -388,7 +388,7 @@
         <div class="w-[3vw]"></div>
         <div>
             <div
-                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-black hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] select-none border-2 border-black font-semibold bg-lime-200 text-black hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="flex flex-col items-center justify-center mx-1 bg-red border-2 border-black">
                     <div>{{ $block->translatedInput('in_jail_top') }}
                         {{ $block->translatedInput('in_jail_bottom') }}</div>
@@ -405,7 +405,7 @@
         @foreach ($block->getRelated('bottom_cards') as $card)
             <div class="wrapper">
                 <div
-                    class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                    class="propertyCard bg-white border-2 border-black w-[8vw] h-[20vh] select-none text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                     @if ($card instanceof \App\Models\Property)
                         <div class="rentData hidden">
                             <div class="rent0">{{ $card->rent0 }}</div>
@@ -498,7 +498,7 @@
                     </div>
                 </div>
                 @if ($card instanceof \App\Models\Property)
-                    <div class="counter w-[8vw] h-[6vh] grid grid-cols-3">
+                    <div class="counter w-[8vw] h-[6vh] select-none grid grid-cols-3">
                         <div
                             class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             -</div>
@@ -516,7 +516,7 @@
         {{-- GO --}}
         <div>
             <div
-                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
+                class="flex flex-col items-center justify-center w-[10vw] h-[20vh] select-none border-2 border-black font-semibold bg-lime-200 text-red hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                 <div class="mt-1">{{ $block->translatedInput('go_bottom') }}</div>
                 <div>
                     <img src="{{ $block->image('go_icon', 'free') }}">
