@@ -51,5 +51,11 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('players', $players ?? null);
         });
+
+        View::composer(['components.twill.blocks.players',], function (IlluminateView $view) {
+            $players = Player::all();
+
+            $view->with('players', $players ?? null);
+        });
     }
 }

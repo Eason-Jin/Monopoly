@@ -23,16 +23,11 @@ class Players extends TwillBlockComponent
   }
   public function getForm(): Form
   {
-    return Form::make([
-      
-      Browser::make()
-        ->name('players')
-        ->modules([Player::class])
-    ]);
+    return Form::make([]);
   }
 
   public static function getBlockTitle(?Block $block = null): string
   {
-    return "Players";
+    return "Game Footer";
   }
 }

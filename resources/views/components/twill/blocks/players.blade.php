@@ -1,6 +1,6 @@
 <div class="grid grid-cols-3 mx-14 my-3 gap-5">
     <div class="p-2 border-black border-2 rounded-md bg-gray-300">
-        @foreach ($block->getRelated('players') as $player)
+        @foreach ($players as $player)
             <div
                 class="dragPlayer bg-white border-2 border-black rounded-md absolute w-fit flex flex-col items-center justify-center z-[1] cursor-move">
                 <div class="text-[2vh] mt-1 mx-2 whitespace-nowrap">{{ $player->title }}</div>
