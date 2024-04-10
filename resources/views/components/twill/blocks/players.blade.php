@@ -36,97 +36,99 @@
 </div>
 
 <script>
-    // Select all elements with the dragPlayer class
-    var dragElements = document.querySelectorAll(".dragPlayer");
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all elements with the dragPlayer class
+        var dragElements = document.querySelectorAll(".dragPlayer");
 
-    // Loop through each dragPlayer element and attach the drag functionality
-    dragElements.forEach(function(el) {
-        dragElement(el);
-    });
+        // Loop through each dragPlayer element and attach the drag functionality
+        dragElements.forEach(function(el) {
+            dragElement(el);
+        });
 
-    function dragElement(elmnt) {
-        var pos1 = 0,
-            pos2 = 0,
-            pos3 = 0,
-            pos4 = 0;
+        function dragElement(elmnt) {
+            var pos1 = 0,
+                pos2 = 0,
+                pos3 = 0,
+                pos4 = 0;
 
-        elmnt.onmousedown = dragMouseDown;
+            elmnt.onmousedown = dragMouseDown;
 
-        function dragMouseDown(e) {
-            e = e || window.event;
-            e.preventDefault();
-            // get the mouse cursor position at startup:
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            // call a function whenever the cursor moves:
-            document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-            e = e || window.event;
-            e.preventDefault();
-            // calculate the new cursor position:
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            // set the element's new position:
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        }
-
-        function closeDragElement() {
-            // stop moving when mouse button is released:
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
-    }
-
-    // New game reloads the page
-    function newGame() {
-        location.reload();
-    }
-
-    // Save the game
-    function saveGame() {
-
-    }
-
-    // Function to generate a random number between min and max
-    function getRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    // Function to roll the numbers and update the display
-    function rollNumbers() {
-        var num1Array = [];
-        var num2Array = [];
-
-        // Generate 10 random numbers for num1 and num2
-        for (var i = 0; i < 10; i++) {
-            num1Array.push(getRandomNumber(1, 6));
-            num2Array.push(getRandomNumber(1, 6));
-        }
-
-        // Update the display with the first numbers
-        document.getElementById('num1').textContent = num1Array[0];
-        document.getElementById('num2').textContent = num2Array[0];
-
-        // Loop through the arrays with a 0.1s interval
-        var index = 1;
-        var interval = setInterval(function() {
-            if (index < 10) {
-                document.getElementById('num1').textContent = num1Array[index];
-                document.getElementById('num2').textContent = num2Array[index];
-                document.getElementById('result').textContent = num1Array[index] + num2Array[index];
-                index++;
-            } else {
-                clearInterval(interval); // Stop the interval when reaching the last number
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
             }
-        }, 50);
-    }
 
-    // Add event listener to the roll button
-    document.getElementById('rollButton').addEventListener('click', rollNumbers);
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        // New game reloads the page
+        function newGame() {
+            location.reload();
+        }
+
+        // Save the game
+        function saveGame() {
+
+        }
+
+        // Function to generate a random number between min and max
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Function to roll the numbers and update the display
+        function rollNumbers() {
+            var num1Array = [];
+            var num2Array = [];
+
+            // Generate 10 random numbers for num1 and num2
+            for (var i = 0; i < 10; i++) {
+                num1Array.push(getRandomNumber(1, 6));
+                num2Array.push(getRandomNumber(1, 6));
+            }
+
+            // Update the display with the first numbers
+            document.getElementById('num1').textContent = num1Array[0];
+            document.getElementById('num2').textContent = num2Array[0];
+
+            // Loop through the arrays with a 0.1s interval
+            var index = 1;
+            var interval = setInterval(function() {
+                if (index < 10) {
+                    document.getElementById('num1').textContent = num1Array[index];
+                    document.getElementById('num2').textContent = num2Array[index];
+                    document.getElementById('result').textContent = num1Array[index] + num2Array[index];
+                    index++;
+                } else {
+                    clearInterval(interval); // Stop the interval when reaching the last number
+                }
+            }, 50);
+        }
+
+        // Add event listener to the roll button
+        document.getElementById('rollButton').addEventListener('click', rollNumbers);
+    });
 </script>
