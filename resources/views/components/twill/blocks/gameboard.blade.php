@@ -1,5 +1,5 @@
 {{-- TOP & BOTTOM CARDS: w-[8vw] h-[20vh], Counter: w-[8vw] h-[6vh], Owner: w-[8vw] h-[4vh] --}}
-{{-- LEFT & RIGHT CARDS: w-[10vw] h-[20vh], Conuter: w-[3vw] h-[20vh], LR-margin: [0.5vw] --}}
+{{-- LEFT & RIGHT CARDS: w-[10vw] h-[20vh], Counter: w-[3vw] h-[20vh], Owner: w-[8vw] h-[4vh] LR-margin: [0.5vw] --}}
 {{-- CORNER CARDS: w-[10vw] h-[20vh] --}}
 {{-- Title: h-[6vh], Images: h-[8vh] --}}
 
@@ -22,7 +22,7 @@
         @foreach ($block->getRelated('top_cards') as $card)
             <div class="wrapper">
                 @if ($card instanceof \App\Models\Property)
-                    <select class="border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
+                    <select class="owner border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
                         <option selected value="vacant">Vacant</option>
                         @foreach ($players as $player)
                             <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
@@ -263,6 +263,12 @@
                                 @endif
                             </div>
                         </div>
+                        <select class="owner mt-2 border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
+                            <option selected value="vacant">Vacant</option>
+                            @foreach ($players as $player)
+                                <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             @endforeach
@@ -273,6 +279,12 @@
             @foreach ($block->getRelated('right_cards') as $card)
                 <div class="wrapper">
                     <div class="flex flex-row">
+                        <select class="owner mt-2 border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
+                            <option selected value="vacant">Vacant</option>
+                            @foreach ($players as $player)
+                                <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
+                            @endforeach
+                        </select>
                         <div
                             class="propertyCard bg-white border-2 border-black w-[10vw] h-[20vh] select-none text-[2vh] font-semibold text-center flex flex-col hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             @if ($card instanceof \App\Models\Property)
@@ -511,7 +523,7 @@
                             class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             +</div>
                     </div>
-                    <select class="border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
+                    <select class="owner border-2 w-[8vw] h-[4vh] rounded-md border-black outline-none font-semibold">
                         <option selected value="vacant">Vacant</option>
                         @foreach ($players as $player)
                             <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
