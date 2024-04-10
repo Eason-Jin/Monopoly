@@ -4,7 +4,12 @@
 {{-- Title: h-[6vh], Images: h-[8vh] --}}
 
 {{-- TODO: Add owner to property --}}
-
+<select class="border-2 rounded-md border-black outline-none font-semibold">
+    <option selected value="vacant">Vacant</option>
+    @foreach ($players as $player)
+        <option class="font-semibold" value="{{ $player->title }}">{{ $player->title }}</option>
+    @endforeach
+</select>
 <div class="my-2">
     {{-- TOP ROW --}}
     <div class="flex flex-row justify-center">
