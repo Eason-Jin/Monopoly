@@ -32,7 +32,8 @@
                         <div
                             class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             -</div>
-                        <div class="houseNum flex flex-row items-center justify-center"></div>
+                        <div class="houseNumDisplay flex flex-row items-center justify-center"></div>
+                        <div class="houseNumData hidden"></div>
                         <div
                             class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             +</div>
@@ -161,7 +162,8 @@
                                 <div
                                     class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                                     +</div>
-                                <div class="houseNum flex flex-col items-center justify-center"></div>
+                                <div class="houseNumDisplay flex flex-col items-center justify-center"></div>
+                                <div class="houseNumData hidden"></div>
                                 <div
                                     class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                                     -</div>
@@ -388,7 +390,8 @@
                                 <div
                                     class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                                     +</div>
-                                <div class="houseNum flex flex-col items-center justify-center"></div>
+                                <div class="houseNumDisplay flex flex-col items-center justify-center"></div>
+                                <div class="houseNumData hidden"></div>
                                 <div
                                     class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                                     -</div>
@@ -522,7 +525,8 @@
                         <div
                             class="decrement m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             -</div>
-                        <div class="houseNum flex flex-row items-center justify-center"></div>
+                        <div class="houseNumDisplay flex flex-row items-center justify-center"></div>
+                        <div class="houseNumData hidden"></div>
                         <div
                             class="increment m-1 flex items-center justify-center bg-sky-200 border-2 border-sky-400 rounded-md font-semibold hover:bg-sky-500 hover:border-sky-300 hover:text-white hover:scale-110 cursor-pointer hover:shadow-xl transition duration-300 ease-in-out">
                             +</div>
@@ -639,11 +643,12 @@
                 return;
             }
             let houseCount = 0;
-            const houseNum = counter.querySelector('.houseNum');
+            const houseNumDisplay = counter.querySelector('.houseNumDisplay');
             const incrementBtn = counter.querySelector('.increment');
             const decrementBtn = counter.querySelector('.decrement');
 
-            // Rent datas
+
+            // Rent datas, this has to be in front of loading count
             const rentData = card.querySelector('.rentData');
             let dataMap = null;
             if (rentData != null) {
@@ -655,9 +660,19 @@
                     4: parseInt(rentData.querySelector('.rent4').textContent.trim()),
                     5: parseInt(rentData.querySelector('.rentHotel').textContent.trim()),
                 };
-                console.log(dataMap);
                 updateCount();
             }
+
+
+            // // Load saved count from local storage
+            // var savedCountsJSON = localStorage.getItem('savedHouseCounts');
+            // if (savedCountsJSON) {
+            //     var savedCounts = JSON.parse(savedCountsJSON);
+            //     document.querySelectorAll('.counter').forEach((counter, index) => {
+            //         houseCount = savedCounts[index];
+            //         updateCount();
+            //     });
+            // }
 
             // Increment house count
             incrementBtn.addEventListener('click', function() {
@@ -671,6 +686,7 @@
                     additionalDetails.style.display = 'none';
                     mainContent.style.display = 'flex';
                 }, 5000);
+                // Save count
             });
 
             // Decrement house count
@@ -685,12 +701,16 @@
                     additionalDetails.style.display = 'none';
                     mainContent.style.display = 'flex';
                 }, 5000);
+                // Save count
             });
 
             // Update card and counter
             function updateCount() {
-                let svgCode = ''; // Variable to store the generated SVG code
+                counter.querySelector('.houseNumData').innerHTML = houseCount;
 
+                let svgCode = '';
+
+                // Dymanic rent value
                 if (dataMap != null) {
                     const currentRent = dataMap[houseCount];
                     const rent = additionalDetails.querySelector('.rent');
@@ -715,11 +735,12 @@
                     }
                 }
 
-                houseNum.innerHTML = svgCode;
+                houseNumDisplay.innerHTML = svgCode;
             }
         })
+        // End of card behaviours
 
-        // Saved positions for drag elements
+        // Load saved positions for drag elements
         var savedPositions = localStorage.getItem('savedPositions');
         if (savedPositions) {
             var positions = JSON.parse(savedPositions);
@@ -729,6 +750,18 @@
             dragElements.forEach(function(el, index) {
                 el.style.top = positions[index].top + 'px';
                 el.style.left = positions[index].left + 'px';
+            });
+        }
+
+        // Load saved owners
+        var savedOwnersJSON = localStorage.getItem('savedOwners');
+        if (savedOwnersJSON) {
+            var savedOwners = JSON.parse(savedOwnersJSON);
+            savedOwners.forEach(function(owner) {
+                var select = document.querySelectorAll('.owner')[owner.index];
+                if (select) {
+                    select.value = owner.selectedOwner;
+                }
             });
         }
 
@@ -778,15 +811,19 @@
                 document.onmousemove = null;
             }
         }
+        // End of drag elements
 
         // New game reloads the page and clears local storage
         function newGame() {
             localStorage.removeItem('savedPositions');
+            localStorage.removeItem('savedOwners');
+            localStorage.removeItem('savedHouseCounts');
             location.reload();
         }
 
         // Save the game
         function saveGame() {
+            // Save the position for drag elements
             var dragElements = document.querySelectorAll(".dragPlayer");
             var positions = [];
 
@@ -800,6 +837,35 @@
 
             var positionsJSON = JSON.stringify(positions);
             localStorage.setItem('savedPositions', positionsJSON);
+
+            // Save the selected owner for each property
+            var propertySelects = document.querySelectorAll(".owner");
+            var owners = [];
+
+            propertySelects.forEach(function(select, index) {
+                var propertyOwner = {
+                    index: index, // Using index as a reference
+                    selectedOwner: select.value
+                };
+                owners.push(propertyOwner);
+            });
+
+            var ownersJSON = JSON.stringify(owners);
+            localStorage.setItem('savedOwners', ownersJSON);
+
+            // Save the house counts
+            var houseCounts = [];
+            var houseNumDatas = document.querySelectorAll('.houseNumData');
+            houseNumDatas.forEach(function(houseNumData, index) {
+                houseCounts.push({
+                    index: index,
+                    count: parseInt(houseNumData.innerHTML)
+                });
+            });
+
+            var houseCountsJSON = JSON.stringify(houseCounts);
+            localStorage.setItem('savedHouseCounts', houseCountsJSON);
+
         }
 
         // Function to generate a random number between min and max
@@ -834,9 +900,12 @@
                     clearInterval(interval); // Stop the interval when reaching the last number
                 }
             }, 50);
+
+            // Rolling also saves the game
             saveGame();
         }
 
+        // Event listeners here
         document.getElementById('rollButton').addEventListener('click', rollNumbers);
         document.getElementById('newGameButton').addEventListener('click', newGame);
         document.getElementById('saveButton').addEventListener('click', saveGame);
